@@ -79,24 +79,36 @@ p 'arr.each_cons(2).map { |x| x = x[1] / x[0] }.uniq.count == 1 ? arr[1] / arr[0
 p arr.each_cons(2).map { |x| x = x[1] / x[0] }.uniq.count == 1 ? arr[1] / arr[0] : nil
 p '--------------'
 p '17.Дан целочисленный массив. Найти количество его локальных максимумов.'
-p 'arr = [10, 10, 10, 3, 4, 2, 1, 1, 3]'
-p 'arr.count(arr.max)'
-  arr = [10, 10, 10, 3, 4, 2, 1, 1, 3]
-p arr.count(arr.max)
+p 'max = []'
+p '[10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| max << x[1] if x[0] < x[1] && x[1] > x[2] }'
+p 'max.count'
+  max = []
+  [10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| max << x[1] if x[0] < x[1] && x[1] > x[2] }
+p max.count
 p '--------------'
 p '18.Дан целочисленный массив. Найти количество его локальных минимумов.'
-p 'arr = [10, 10, 10, 3, 4, 2, 1, 1, 3]'
-p 'arr.count(arr.min)'
-  arr = [10, 10, 10, 3, 4, 2, 1, 1, 3]
-p arr.count(arr.min)
+p 'min = []'
+p '[10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| min << x[1] if x[0] > x[1] && x[1] < x[2] }'
+p 'min.count'
+  min = []
+  [10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| min << x[1] if x[0] > x[1] && x[1] < x[2] }
+p min.count
 p '--------------'
 p '19.Дан целочисленный массив. Найти максимальный из его локальных максимумов.'
-p 'arr = [10, 10, 10, 3, 4, 2, 1, 1, 3].max'
-p arr = [10, 10, 10, 3, 4, 2, 1, 1, 3].max
+p 'max = []'
+p '[10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| max << x[1] if x[0] < x[1] && x[1] > x[2] }'
+p 'max.sort.last'
+  max = []
+  [10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| max << x[1] if x[0] < x[1] && x[1] > x[2] }
+p max.sort.last
 p '--------------'
 p '20.Дан целочисленный массив. Найти минимальный из его локальных минимумов.'
-p 'arr = [10, 10, 10, 3, 4, 2, 1, 1, 3].min'
-p arr = [10, 10, 10, 3, 4, 2, 1, 1, 3].min
+p 'min = []'
+p '[10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| min << x[1] if x[0] > x[1] && x[1] < x[2] }'
+p 'min.sort.first'
+  min = []
+  [10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| min << x[1] if x[0] > x[1] && x[1] < x[2] }
+p min.sort.first
 p '--------------'
 p '21.Дан целочисленный массив. Определить количество участков, на которых его элементы монотонно возрастают.'
 p 'arr = [10, 5, 1, 3 ,9, 27, 81, 1, -1, 10, 11, 1]'
