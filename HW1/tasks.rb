@@ -55,16 +55,12 @@ p 'arr.each { |x| x < 0 ? x = arr.max : x }'
 p arr.map { |x| x < 0 ? x = arr.max : x }
 p '--------------'
 p '13.Дан целочисленный массив. Осуществить циклический сдвиг элементов массива влево на одну позицию.'
-p 'arr = (1..10).to_a'
-p 'arr = arr.insert(-1, arr.delete_at(0))'
-  arr = (1..10).to_a
-p arr = arr.insert(-1, arr.delete_at(0))
+p '(1..10).to_a.rotate(1)'
+p (1..10).to_a.rotate(1)
 p '--------------'
 p '14.Дан целочисленный массив. Осуществить циклический сдвиг элементов массива вправо на одну позицию.'
-p 'arr = (1..10).to_a'
-p 'arr = arr.insert(-1, arr.delete_at(-1))'
-  arr = (1..10).to_a
-p arr = arr.insert(0, arr.delete_at(-1))
+p '(1..10).to_a.rotate(-1)'
+p (1..10).to_a.rotate(-1)
 p '--------------'
 p '15.Дан целочисленный массив. Проверить, образуют ли элементы арифметическую прогрессию. Если да, то вывести разность прогрессии, если нет - вывести nil.'
 p 'arr = [1, 2, 3, 4, 5, 6]'
@@ -95,20 +91,20 @@ p 'min.count'
 p min.count
 p '--------------'
 p '19.Дан целочисленный массив. Найти максимальный из его локальных максимумов.'
-p 'max = []'
-p '[10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| max << x[1] if x[0] < x[1] && x[1] > x[2] }'
-p 'max.sort.last'
-  max = []
-  [10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| max << x[1] if x[0] < x[1] && x[1] > x[2] }
-p max.sort.last
+p 'maximum = []'
+p '[10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| maximum << x[1] if x[0] < x[1] && x[1] > x[2] }'
+p 'maximum.sort.last'
+  maximum = []
+  [10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| maximum << x[1] if x[0] < x[1] && x[1] > x[2] }
+p maximum.max
 p '--------------'
 p '20.Дан целочисленный массив. Найти минимальный из его локальных минимумов.'
-p 'min = []'
-p '[10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| min << x[1] if x[0] > x[1] && x[1] < x[2] }'
-p 'min.sort.first'
-  min = []
-  [10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| min << x[1] if x[0] > x[1] && x[1] < x[2] }
-p min.sort.first
+p 'minimum = []'
+p '[10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| minimum << x[1] if x[0] > x[1] && x[1] < x[2] }'
+p 'minimum.min'
+  minimum = []
+  [10, 10, 10, 3, 4, 2, 1, 5, 3].each_cons(3).each_with_index { |x, i| minimum << x[1] if x[0] > x[1] && x[1] < x[2] }
+p minimum.min
 p '--------------'
 p '21.Дан целочисленный массив. Определить количество участков, на которых его элементы монотонно возрастают.'
 p 'arr = [10, 5, 1, 3 ,9, 27, 81, 1, -1, 10, 11, 1]'
@@ -216,23 +212,15 @@ p a = [3, 5, 11, 6, 11, -3, -5, -1, 2].index(a.max)
 p '--------------'
 p '37.Дан целочисленный массив. Найти индекс последнего минимального элемента.'
 p 'arr = [3, -5, 1, 6, 11, -3, -5, -1, 2]'
-p 'min = []'
-p 'arr.each_with_index { |e, i| min << i if e == arr.min }'
-p 'min.last'
+p 'arr.rindex(arr.min)'
   arr = [3, -5, 1, 6, 11, -3, -5, -1, 2]
-  min = []
-  arr.each_with_index { |e, i| min << i if e == arr.min }
-p min.last
+p arr.rindex(arr.min)
 p '--------------'
 p '38.Дан целочисленный массив. Найти индекс последнего максимального элемента.'
 p 'arr = [3, -5, 1, 6, 11, -3, -5, 11, 2]'
-p 'max = []'
-p 'arr.each_with_index { |e, i| max << i if e == arr.max }'
-p 'max.last'
+p 'arr.rindex(arr.max)'
   arr = [3, -5, 1, 6, 11, -3, -5, 11, 2]
-  max = []
-  arr.each_with_index { |e, i| max << i if e == arr.max }
-p max.last
+p arr.rindex(arr.max)
 p '--------------'
 p '39.Дан целочисленный массив. Найти количество минимальных элементов.'
 p 'arr = [3, -5, 1, 6, 11, -3, -5, 11, 2]'
@@ -370,7 +358,7 @@ p 'arr[(arr.index(arr.min) + 1)...min.last]'
   arr = [3, -5, 1, 6, 11, -3, -5, 11, 2]
   min = []
   arr.each_with_index { |e, i| min << i if e == arr.min }
-p arr[(arr.index(arr.min) + 1)...min.last]
+p arr[(arr.index(arr.min) + 1)...min.last].count
 p '--------------'
 p '60.Дан целочисленный массив. Найти количество элементов, между первым и последним максимальным.'
 p 'arr = [3, -5, 1, 6, 11, -3, -5, 11, 2]'
@@ -380,15 +368,15 @@ p 'arr[(arr.index(arr.max) + 1)...max.last]'
   arr = [3, -5, 1, 6, 11, -3, -5, 11, 2]
   max = []
   arr.each_with_index { |e, i| max << i if e == arr.max }
-p arr[(arr.index(arr.max) + 1)...max.last]
+p arr[(arr.index(arr.max) + 1)...max.last].count
 p '--------------'
 p '61.Дан целочисленный массив. Найти два наибольших элемента.'
-p 'array = [10, 2, 15, 4, 10, 12, 5].sort.reverse[0..1]'
-p array = [10, 2, 15, 4, 10, 12, 5].sort.reverse[0..1]
+p '[10, 2, 15, 4, 10, 12, 5].max(2)'
+p [10, 2, 15, 4, 10, 12, 5].max(2)
 p '--------------'
 p '62.Дан целочисленный массив. Найти два наименьших элемента.'
-p 'array = [10, 2, 15, 4, 10, 12, 5].sort[0..1]'
-p array = [10, 2, 15, 4, 10, 12, 5].sort[0..1]
+p '[10, 2, 15, 4, 10, 12, 5].min(2)'
+p [10, 2, 15, 4, 10, 12, 5].min(2)
 p '--------------'
 p '63.Дан целочисленный массив. Найти максимальное количество подряд идущих минимальных элементов.'
 p 'result = []'
@@ -481,17 +469,11 @@ p 'result'
 p result
 p '--------------'
 p '72.Дан целочисленный массив. Удалить все элементы, встречающиеся более двух раз.'
-p 'arr = [6, 1, 1, 5, 2, 3, 3, 3, 4]'
-p 'result = []'
-p 'arr.map { |x| result << x if arr.count(x) <= 2 }'
-p 'result'
-  arr = [7, 7, 7, 6, 1, 1, 5, 2, 3, 3, 3, 4]
-  result = []
-  arr.map { |x| result << x if arr.count(x) <= 2 }
-p result
+p '[6, 1, 1, 5, 2, 3, 3, 3, 4].uniq'
+p [7, 7, 7, 6, 1, 1, 5, 2, 3, 3, 3, 4].uniq
 p '--------------'
 p '73.Дан целочисленный массив. Удалить все элементы, встречающиеся ровно два раза.'
-p 'arr = [6, 1, 1, 5, 2, 3, 3, 3, 4]'
+p '[6, 1, 1, 5, 2, 3, 3, 3, 4].uniq'
 p 'result = []'
 p 'arr.map { |x| result << x if arr.count(x) != 2 }'
 p 'result'
