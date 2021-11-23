@@ -1,10 +1,10 @@
 p '1.Дан целочисленный массив. Необходимо вывести вначале его элементы с четными индексами, а затем - с нечетными.'
-p '(1..10).to_a.partition.with_index { |e, i| i.even? }'
-p (1..10).to_a.partition.with_index { |e, i| i.even? }
+p '(1..10).to_a.partition.with_index { |e, i| i.even? }.flatten'
+p (1..10).to_a.partition.with_index { |e, i| i.even? }.flatten
 p '--------------'
 p '2.Дан целочисленный массив. Необходимо вывести вначале его элементы с нечетными индексами, а затем - с четными.'
-p '(1..10).to_a.partition.with_index { |e, i| i.odd? }'
-p (1..10).to_a.partition.with_index { |e, i| i.odd? }
+p '(1..10).to_a.partition.with_index { |e, i| i.odd? }.flatten'
+p (1..10).to_a.partition.with_index { |e, i| i.odd? }.flatten
 p '--------------'
 p '5.Дан целочисленный массив. Преобразовать его, прибавив к четным числам первый элемент. Первый и последний элементы массива не изменять.'
 p 'arr = (1..10).to_a'
@@ -235,20 +235,20 @@ p 'arr.count(arr.max)'
 p arr.count(arr.max)
 p '--------------'
 p '41.Дан целочисленный массив. Найти минимальный четный элемент'
-p 'array = [3, -5, 1, 2, 11, 6, 5, 2].sort.partition.each { |x| x.even? }.first[0]'
-p array = [3, -5, 1, 2, 11, 6, 5, 2].sort.partition.each { |x| x.even? }.first[0]
+p '[3, -5, 1, 2, 11, 6, 5, 2].select(&:even?).min'
+p [3, -5, 1, 2, 11, 6, 5, 2].select(&:even?).min
 p '--------------'
 p '42.Дан целочисленный массив. Найти минимальный нечетный элемент'
-p 'array = [3, -5, 1, 2, 11, 6, 5, 2].sort.partition.each { |x| x.odd? }.first[0]'
-p array = [3, -5, 1, 2, 11, 6, 5, 2].sort.partition.each { |x| x.odd? }.first[0]
+p '[3, -5, 1, 2, 11, 6, 5, 2].select(&:odd?).min'
+p [3, -5, 1, 2, 11, 6, 5, 2].select(&:odd?).min
 p '--------------'
 p '43.Дан целочисленный массив. Найти максимальный четный элемент'
-p 'array = [3, -5, 1, 2, 11, 6, 5, 2].sort.partition.each { |x| x.even? }.first[-1]'
-p array = [3, -5, 1, 2, 11, 6, 5, 2].sort.partition.each { |x| x.even? }.first[-1]
+p '[3, -5, 1, 2, 11, 6, 5, 2].select(&:even?).max'
+p [3, -5, 1, 2, 11, 6, 5, 2].select(&:even?).max
 p '--------------'
 p '44.Дан целочисленный массив. Найти максимальный нечетный элемент'
-p 'array = [3, -5, 1, 2, 11, 6, 5, 2].sort.partition.each { |x| x.odd? }.first[-1]'
-p array = [3, -5, 1, 2, 11, 6, 5, 2].sort.partition.each { |x| x.odd? }.first[-1]
+p '[3, -5, 1, 2, 11, 6, 5, 2].select(&:odd?).min'
+p [3, -5, 1, 2, 11, 6, 5, 2].select(&:odd?).min
 p '--------------'
 p '45.Дан целочисленный массив. Найти минимальный положительный элемент.'
 p '(-4..4).to_a.sort.partition.each { |x| x.positive? }.first[0]'
@@ -399,12 +399,12 @@ p 'result.join.split(" ").map(&:chars).map(&:count).sort[-1]'
 p result.join.split(" ").map(&:chars).map(&:count).sort[-1]
 p '--------------'
 p '65.Дан целочисленный массив. Вывести вначале все его четные элементы, а затем - нечетные.'
-p '(1..10).to_a.partition(&:even?)'
-p (1..10).to_a.partition(&:even?)
+p '(1..10).to_a.partition(&:even?).flatten'
+p (1..10).to_a.partition(&:even?).flatten
 p '--------------'
 p '66.Дан целочисленный массив. Вывести вначале все его нечетные элементы, а затем - четные.'
-p '(1..10).to_a.partition(&:odd?)'
-p (1..10).to_a.partition(&:odd?)
+p '(1..10).to_a.partition(&:odd?).flatten'
+p (1..10).to_a.partition(&:odd?).flatten
 p '--------------'
 p '67.Дан целочисленный массив. Проверить, чередуются ли в нем четные и нечетные числа.'
 p 'result = [[],[]]'
@@ -460,13 +460,9 @@ p result[1].all?
 p '--------------'
 p '71.Дан целочисленный массив. Удалить все элементы, встречающиеся менее двух раз.'
 p 'arr = [6, 1, 1, 5, 2, 3, 3, 3, 4]'
-p 'result = []'
-p 'arr.map { |x| result << x if arr.count(x) >= 2 }'
-p 'result'
+p 'arr = arr.delete_if { |x| arr.count(x) < 2 }'
   arr = [6, 1, 1, 5, 2, 3, 3, 3, 4]
-  result = []
-  arr.map { |x| result << x if arr.count(x) >= 2 }
-p result
+p arr = arr.delete_if { |x| arr.count(x) < 2 }
 p '--------------'
 p '72.Дан целочисленный массив. Удалить все элементы, встречающиеся более двух раз.'
 p '[6, 1, 1, 5, 2, 3, 3, 3, 4].uniq'
@@ -474,23 +470,15 @@ p [7, 7, 7, 6, 1, 1, 5, 2, 3, 3, 3, 4].uniq
 p '--------------'
 p '73.Дан целочисленный массив. Удалить все элементы, встречающиеся ровно два раза.'
 p '[6, 1, 1, 5, 2, 3, 3, 3, 4].uniq'
-p 'result = []'
-p 'arr.map { |x| result << x if arr.count(x) != 2 }'
-p 'result'
-  arr = [3, 6, 1, 1, 5, 5, 3, 3, 3, 4]
-  result = []
-  arr.map { |x| result << x if arr.count(x) != 2 }
-p result
+p 'arr = arr.delete_if { |x| arr.count(x) == 2 }'
+  arr = [6, 1, 1, 5, 2, 3, 3, 3, 4]
+p arr = arr.delete_if { |x| arr.count(x) == 2 }
 p '--------------'
 p '74.Дан целочисленный массив. Удалить все элементы, встречающиеся ровно три раза.'
 p 'arr = [6, 1, 1, 5, 2, 3, 3, 3, 4]'
-p 'result = []'
-p 'arr.map { |x| result << x if arr.count(x) != 3 }'
-p 'result'
-  arr = [5, 5, 5, 2, 3, 3, 3, 4]
-  result = []
-  arr.map { |x| result << x if arr.count(x) != 3 }
-p result
+p 'arr = arr.delete_if { |x| arr.count(x) == 3 }'
+  arr = [6, 1, 1, 5, 2, 3, 3, 3, 4]
+p arr = arr.delete_if { |x| arr.count(x) == 3 }
 p '--------------'
 p '75.Дан целочисленный массив. Найти среднее арифметическое модулей его элементов.'
 p '(-4..4).to_a.map(&:abs).sum / a.size.to_f'
@@ -501,12 +489,12 @@ p '(-4..4).to_a.map(&:abs).sum / a.size.to_f'
 p (-4..4).to_a.map { |x| x *x }.sum / a.size.to_f
 p '--------------'
 p '77.Дано целое число. Найти сумму его цифр.'
-p '654.to_s.chars.map(&:to_i).sum'
-p  654.to_s.chars.map(&:to_i).sum
+p '654.digits.sum'
+p  654.digits.sum
 p '--------------'
 p '78.Дано целое число. Найти произведение его цифр.'
-p '333.to_s.chars.map(&:to_i).inject(:*)'
-333.to_s.chars.map(&:to_i).inject(:*)
+p '333.digits.inject(:*)'
+p 333.digits.inject(:*)
 p '--------------'
 p '79.Дан целочисленный массив. Возвести в квадрат отрицательные элементы и в третью степень - положительные. Нулевые элементы - не изменять.'
 p 'arr = (-4..4).to_a'
@@ -519,20 +507,20 @@ arr = (-4..4).to_a
 p multiply
 p '--------------'
 p '80.Дан дипапазон a..b. Получить массив из чисел, расположенных в этом диапазоне (исключая сами эти числа), в порядке их возрастания, а также размер этого массива.'
+p 'arr = [1, 5, 5, 6, 13, 4, 17, 19, 2, 20]'
 p 'range = (5..20)'
-p 'array = ((range.first + 1)...range.last).to_a'
-p 'length = arr.size'
+p 'arr.find_all { |x| x > range.first && x < range.last }'
   range = (5..20)
-p array = ((range.first + 1)...range.last).to_a
-p length = array.size
+  arr = [1, 5, 5, 6, 13, 4, 17, 19, 2, 20]
+p arr.find_all { |x| x > range.first && x < range.last }.sort
 p '--------------'
 p '81.Дан дипапазон a..b. Получить массив из чисел, расположенных в этом диапазоне (исключая сами эти числа), в порядке их убывания, а также размер этого массива.'
+p 'arr = [1, 5, 5, 6, 13, 4, 17, 19, 2, 20]'
 p 'range = (5..20)'
-p 'array = ((range.first + 1)...range.last).to_a'
-p 'length = arr.size'
+p 'arr.find_all { |x| x > range.first && x < range.last }'
   range = (5..20)
-p array = ((range.first + 1)...range.last).to_a.reverse
-p length = array.size
+  arr = [1, 5, 5, 6, 13, 4, 17, 19, 2, 20]
+p arr.find_all { |x| x > range.first && x < range.last }.sort.reverse
 p '--------------'
 p '86.Дан целочисленный массив. Найти среднее арифметическое его элементов.'
 p 'a = (3..4).to_a'
@@ -541,60 +529,48 @@ p 'a.sum / a.size.to_f'
 p a.sum / a.size.to_f
 p '--------------'
 p '87.Дан целочисленный массив. Найти все четные элементы.'
-p '(-4..4).to_a.partition { |x| x.even? }.first'
-p (-4..4).to_a.partition { |x| x.even? }.first
+p '(-4..4).to_a.find_all(&:even?)'
+p (-4..4).to_a.find_all(&:even?)
 p '--------------'
 p '88.Дан целочисленный массив. Найти количество четных элементов.'
-p '(-4..4).to_a.partition { |x| x.even? }.first.count'
-p (-4..4).to_a.partition { |x| x.even? }.first.count
+p '(-4..4).to_a.count(&:even?)'
+p (-4..4).to_a.count(&:even?)
 p '--------------'
 p '89.Дан целочисленный массив. Найти все нечетные элементы.'
-p '(-4..4).to_a.partition { |x| x.even? }.last'
-p (-4..4).to_a.partition { |x| x.even? }.last
+p '(-4..4).to_a.find_all(&:odd?)'
+p (-4..4).to_a.find_all(&:odd?)
 p '--------------'
 p '90.Дан целочисленный массив. Найти количество нечетных элементов.'
-p '(-4..4).to_a.partition { |x| x.even? }.last.count'
-p (-4..4).to_a.partition { |x| x.even? }.last.count
+p '(-4..4).to_a.count(&:odd?)'
+p (-4..4).to_a.count(&:odd?)
 p '--------------'
 p '91.Дан целочисленный массив и число К. Если существует элемент, меньший К, то вывести true; в противном случае вывести false.'
 p 'k = 11'
 p 'arr = (10..14).to_a'
-p 'arr.find_all { |x| x < k ? true : false }.empty? ? false : true'
+p 'arr.find_all { |x| x < k ? true : false }.any?'
    k = 11
  arr = (10..14).to_a
-p arr.find_all { |x| x < k ? true : false }.empty? ? false : true
+p arr.find_all { |x| x < k ? true : false }.any?
 p '--------------'
 p '92.Дан целочисленный массив и число К. Если существует элемент, больший К, то вывести true; в противном случае вывести false'
 p 'k = 13'
 p 'arr = (10..14).to_a'
-p 'arr.find_all { |x| x > k ? true : false }.empty? ? false : true'
+p 'arr.find_all { |x| x > k ? true : false }.any?'
   k = 13
   arr = (10..14).to_a
-p arr.find_all { |x| x > k ? true : false }.empty? ? false : true
+p arr.find_all { |x| x > k ? true : false }.any?
 p '--------------'
 p '93.Дан целочисленный массив и число К. Если все элементы массива меньше К, то вывести true; в противном случае вывести false.'
 p 'k = 15'
-p 'arr = (10..14).to_a'
-p 'result = []'
-p 'arr.find_all { |x| x < k ? result << true : result << false }'
-p 'result.all?'
+p '(10..14).to_a.all? { |x| x < k }'
   k = 15
-  arr = (10..14).to_a
-  result = []
-  arr.find_all { |x| x < k ? result << true : result << false }
-p result.all?
+p (10..14).to_a.all? { |x| x < k }
 p '--------------'
 p '94.Дан целочисленный массив и число К. Если все элементы массива больше К, то вывести true; в противном случае вывести false.'
-p 'k = 6'
-p 'arr = (10..14).to_a'
-p 'result = []'
-p 'arr.find_all { |x| x > k ? result << true : result << false }'
-p 'result.all?'
-  k = 6
-  arr = (10..14).to_a
-  result = []
-  arr.find_all { |x| x > k ? result << true : result << false }
-p result.all?
+p 'k = 11'
+p '(10..14).to_a.all? { |x| x > k }'
+  k = 11
+p (10..14).to_a.all? { |x| x > k }
 p '--------------'
 p '95.Дан целочисленный массив и число К. Вывести количество элементов, меньших К.'
 p 'k = 13'
