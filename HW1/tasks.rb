@@ -1,10 +1,10 @@
 p '1.Дан целочисленный массив. Необходимо вывести вначале его элементы с четными индексами, а затем - с нечетными.'
-p '(1..10).to_a.partition.with_index { |e, i| i.even? }.flatten'
-p (1..10).to_a.partition.with_index { |e, i| i.even? }.flatten
+p '(1..10).to_a.partition.with_index { |i| i.even? }.flatten'
+p (1..10).to_a.partition.with_index { |i| i.even? }.flatten
 p '--------------'
 p '2.Дан целочисленный массив. Необходимо вывести вначале его элементы с нечетными индексами, а затем - с четными.'
-p '(1..10).to_a.partition.with_index { |e, i| i.odd? }.flatten'
-p (1..10).to_a.partition.with_index { |e, i| i.odd? }.flatten
+p '(1..10).to_a.partition.with_index { |i| i.odd? }.flatten'
+p (1..10).to_a.partition.with_index { |i| i.odd? }.flatten
 p '--------------'
 p '5.Дан целочисленный массив. Преобразовать его, прибавив к четным числам первый элемент. Первый и последний элементы массива не изменять.'
 p 'arr = (1..10).to_a'
