@@ -32,21 +32,21 @@ p arr.each_with_index { |x, i| arr[i] += arr[0] if x.odd? && (x != arr[0] && x !
 p '--------------'
 p '9.Дан целочисленный массив. Заменить все положительные элементы на значение минимального.'
 p 'arr = (-2..5).to_a'
-p 'arr.each { |x| x > 0 ? x = arr.min : x }'
+p 'arr.each { |x| x.positive? ? x = arr.min : x }'
   arr = (-2..5).to_a
-p arr.map { |x| x > 0 ? x = arr.min : x }
+p arr.map { |x| x.positive? ? x = arr.min : x }
 p '--------------'
 p '10.Дан целочисленный массив. Заменить все положительные элементы на значение максимального.'
 p 'arr = (-2..5).to_a'
-p 'arr.each { |x| x > 0 ? x = arr.max : x }'
+p 'arr.each { |x| x.positive? ? x = arr.max : x }'
   arr = (-2..5).to_a
-p arr.map { |x| x > 0 ? x = arr.max : x }
+p arr.map { |x| x.positive? ? x = arr.max : x }
 p '--------------'
 p '11.Дан целочисленный массив. Заменить все отрицательные элементы на значение минимального.'
 p 'arr = (-2..5).to_a'
-p 'arr.each { |x| x < 0 ? x = arr.min : x }'
+p 'arr.each { |x| x.negative? ? x = arr.min : x }'
   arr = (-2..5).to_a
-p arr.map { |x| x < 0 ? x = arr.min : x }
+p arr.map { |x| x.negative? x = arr.min : x }
 p '--------------'
 p '12.Дан целочисленный массив. Заменить все отрицательные элементы на значение максимального.'
 p 'arr = (-2..5).to_a'
