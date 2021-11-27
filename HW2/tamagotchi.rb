@@ -1,9 +1,10 @@
 class Pet
   def initialize(name, type)
-    @name = name
-    @type = type
+    @name          = name
+    @type          = type
     @asleep        = false
     @satiety       = 10
+    @water         = 10
     @pleasure      = 10
     @natural_needs = 0
     @tiredness     = 0
@@ -11,54 +12,72 @@ class Pet
     @clean         = 10
   end
 
-  attr_reader :type
+  attr_reader :type, :name
 
   def feed
-    p "Вы кормите #{@name} (а)."
+    p "You feed #{@name}."
     @satiety = 10
     time_passes
   end
 
+  def drink
+    p "You drink #{@name}"
+    @water = 10
+    time_passes
+  end
+
   def train
-    p @name + 'уже очень умелый' if @skills == 10
-    p "Вы тренируете #{@name} (а)."
+    p @name + ' needs no training.' if @skills == 10
+    p "You train #{@name}."
     @skills += 2
     time_passes
   end
 
   def walk
-    p "Вы выгуливаете #{@name} (а)."
+    p "You walk #{@name}."
     @natural_needs = 0
     time_passes
   end
 
   def put_to_bed
-    puts "Вы укладываете #{@name}(а) спать."
+    p "You put #{@name} to bed."
     @asleep = true
-    p @name + ' уснул(а) и мило посапывает.'
+    p @name + ' sleeps and snores.'
     time_passes
+    p @name + ' wakes up slowly.'
     @asleep = false
-    p @name + ' медленно просыпается.'
     @tiredness = 0
   end
 
   def play
-    p @name + '(у) нравится подбрасывать и ловить мяч.'
+    p @name + ' throws and catches ball.'
     @pleasure = 10
     time_passes
   end
 
    def skillful?
     if (@skills >= 8)
-      p 'Ваш любимец очень умелый.'
+      p 'Your pet is very skillful.'
     else
-      p 'Нужно еще немного потренироваться...'
+      p 'Need some more practice.'
     end
   end
 
   def wash
-    p @name + ' принимает ванну.'
+    p @name + ' takes a bath.'
     @clean = 10
+  end
+
+  def parameters
+    p "name: #{@name}"
+    p "type: #{@type}"
+    p "satiety: #{@satiety}"
+    p "water: #{@water}"
+    p "pleasure: #{@pleasure}"
+    p "natural_needs: #{@natural_needs}"
+    p "tiredness: #{@tiredness}"
+    p "skills: #{@skills}"
+    p "clean: #{@clean}"
   end
 
   private
@@ -86,8 +105,12 @@ class Pet
   def pet_sleeping?
     if @asleep
       @asleep = false
-      puts @name + ' внезапно просыпается!'
+      p @name + ' He wakes up suddenly!'
     end
+  end
+
+  def wants_drink?
+    @water <= 2
   end
 
   def time_passes
@@ -98,59 +121,67 @@ class Pet
     @clean         -= 2
 
     if @satiety == 0
-      p @name + 'внезапно просыпается!' if @asleep
-      p 'Домашний любимец очень голоден! Доведённый до крайности, он убегает.'
+      pet_sleeping?
+      p @name + ' is starving! In desperation, he go away.'
       exit
     elsif @pleasure == 0
-      p @name + 'внезапно просыпается!' if @asleep
-      p 'Домашний любимец на вас обиделся! Доведённый до крайности, он убегает.'
+      pet_sleeping?
+      p @name +' offended at you! In desperation, he go away.'
       exit
     elsif @tiredness == 0
-      p @name + 'внезапно просыпается!' if @asleep
-      p 'Домашний любимец очень устал! Доведённый до крайности он умирает.'
+      pet_sleeping?
+      p @name + ' is very tired! In desperation, he died.'
+      exit
+    elsif @water == 0
+      pet_sleeping
+      p @name + ' is dehydrated! In desperation, he died.'
     end
 
     if @natural_needs >= 10
       @natural_needs = 0
-      puts "Опаньки! #{@name} сделал(a) нехорошо..."
+      p "Whoops! #{@name} had an accident..."
     end
 
     if hungry?
       pet_sleeping?
-      puts "В желудке у #{@name} (а) урчит..."
+      p @name + ' stomach grumbles...'
     end
 
     if poopy?
       pet_sleeping?
-      puts @name + ' подпрыгивает, потому что хочет на горшок.'
+      p @name + ' does the potty dance...'
     end
 
     if happy?
       pet_sleeping?
-      p @name + ' грустит...'
+      p @name + ' is sad.'
     end
 
     if tired?
       pet_sleeping?
-      p @name + ' хочет отдохнуть.'
+      p @name + ' wants to sleep.'
     end
 
     if dirty?
       pet_sleeping?
-      p @name + ' хочет принять ванную.'
+      p @name + ' wants to take a bath.'
+    end
+
+    if wants_drink?
+      pet_sleeping?
+      p @name + ' wants to drink.'
     end
   end
 end
 
-p 'Дайте имя питомцу.'
+p 'Give a name to your pet.'
 pet_name = gets.chomp
-p 'Укажите питомца'
+p 'Specify the type of pet.'
 pet_type = gets.chomp
-
 pet = Pet.new(pet_name, pet_type)
 command = ''
-p pet_name + ' родился.'
-p 'Для справки напишите - help'
+p pet_name + ' is born..'
+p 'Write help for information.'
 
 while command != 'exit'
   case command = gets.chomp
@@ -158,6 +189,8 @@ while command != 'exit'
     exit
   when 'feed'
     pet.feed
+  when 'drink'
+    pet.drink
   when 'train'
     pet.train
   when 'walk'
@@ -168,15 +201,29 @@ while command != 'exit'
     pet.put_to_bed
   when 'skillful?'
     pet.skillful?
+  when 'type'
+    p pet.type
+  when 'name'
+    p pet.name
+  when 'wash'
+    pet.wash
+  when 'parameters'
+    pet.parameters
   when 'help'
-    p 'feed - покормить.'
-    p 'walk - выгулять.'
-    p 'train - тренировать.'
-    p 'play - поиграть'
-    p 'put_to_bed - уложить в кровать.'
-    p 'exit - выйти.'
-    p 'skillful? - проверить умения.'
+    p 'feed - feed your pet.'
+    p 'drink - drink your pet.'
+    p 'walk - walk your pet.'
+    p 'train - train your pet.'
+    p 'play - play with your pet.'
+    p 'put_to_bed - put your pet to bed.'
+    p 'skillful? - test your pet\'s skills.'
+    p 'wash - wash your pet.'
+    p 'type - type of pet.'
+    p 'name - pet\'s name'
+    p 'parameters - check the parameters.'
+    p 'exit - exit the program.'
   else
+    p 'Сommand is not correct write help for information.'
     command = gets.chomp
   end
 end
