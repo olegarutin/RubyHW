@@ -40,9 +40,8 @@ p 'array.map { |x| x.to_f / 10 }'
 p array.map { |x| x.to_f / 10 }
 p '--------------'
 p '11.Получить новый массив, который бы содержал в себе те буквы английского алфавита, порядковый номер которых есть в нашем массиве.'
-p 'array.select { |x| x < 26 }.map { |e| (e + 97).chr }'
-p array.select { |x| x < 26 }.map { |e| (e + 97).chr }
-# p array.map { |x| (array.index(x) + 97).chr }
+p 'array.select { |x| x > 0 && x < 27 }.map { |e| (e + 96).chr }'
+p array.select { |x| x > 0 && x < 27 }.map { |e| (e + 96).chr }
 p '--------------'
 p '12.Поменять местами минимальный и максимальный элементы массива.'
 p 'array.map { |x| (x == array.min || x == array.max) ? ((x == array.min) ? x = array.max : x = array.min ) : x }'
@@ -50,7 +49,7 @@ p array.map { |x| (x == array.min || x == array.max) ? ((x == array.min) ? x = a
 p '--------------'
 p '13.Найти элементы, которые находятся перед минимальным числом в массиве.'
 p 'array[0...array.min]'
-p array[0...array.min]
+p array[0...array.index(array.min)]
 p '--------------'
 p '14.Необходимо найти три наименьших элемента.'
 p 'array.min(3)'

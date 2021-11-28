@@ -42,21 +42,21 @@ class Pet
   def put_to_bed
     p "You put #{@name} to bed."
     @asleep = true
-    p @name + ' sleeps and snores.'
+    p "#{@name} sleeps and snores."
     time_passes
-    p @name + ' wakes up slowly.'
+    p "#{@name} wakes up slowly."
     @asleep = false
     @tiredness = 0
   end
 
   def play
-    p @name + ' throws and catches ball.'
+    p "#{@name} throws and catches ball."
     @pleasure = 10
     time_passes
   end
 
    def skillful?
-    if (@skills >= 8)
+    if @skills >= 8
       p 'Your pet is very skillful.'
     else
       p 'Need some more practice.'
@@ -64,7 +64,7 @@ class Pet
   end
 
   def wash
-    p @name + ' takes a bath.'
+    p "#{@name} takes a bath."
     @clean = 10
   end
 
@@ -105,7 +105,7 @@ class Pet
   def pet_sleeping?
     if @asleep
       @asleep = false
-      p @name + ' He wakes up suddenly!'
+      p "#{@name} He wakes up suddenly!"
     end
   end
 
@@ -122,19 +122,19 @@ class Pet
 
     if @satiety == 0
       pet_sleeping?
-      p @name + ' is starving! In desperation, he go away.'
+      p "#{@name} is starving! In desperation, he go away."
       exit
     elsif @pleasure == 0
       pet_sleeping?
-      p @name +' offended at you! In desperation, he go away.'
+      p "#{@name} offended at you! In desperation, he go away."
       exit
     elsif @tiredness == 0
       pet_sleeping?
-      p @name + ' is very tired! In desperation, he died.'
+      p "#{@name} is very tired! In desperation, he died."
       exit
     elsif @water == 0
       pet_sleeping
-      p @name + ' is dehydrated! In desperation, he died.'
+      p "#{@name} is dehydrated! In desperation, he died."
     end
 
     if @natural_needs >= 10
@@ -144,32 +144,32 @@ class Pet
 
     if hungry?
       pet_sleeping?
-      p @name + ' stomach grumbles...'
+      p "#{@name} stomach grumbles..."
     end
 
     if poopy?
       pet_sleeping?
-      p @name + ' does the potty dance...'
+      p "#{@name} does the potty dance..."
     end
 
     if happy?
       pet_sleeping?
-      p @name + ' is sad.'
+      p "#{@name} is sad."
     end
 
     if tired?
       pet_sleeping?
-      p @name + ' wants to sleep.'
+      p "#{@name} wants to sleep."
     end
 
     if dirty?
       pet_sleeping?
-      p @name + ' wants to take a bath.'
+      p "#{@name} wants to take a bath."
     end
 
     if wants_drink?
       pet_sleeping?
-      p @name + ' wants to drink.'
+      p "#{@name} wants to drink."
     end
   end
 end
