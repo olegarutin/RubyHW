@@ -174,6 +174,31 @@ class Pet
   end
 end
 
+class Dog < Pet
+  def run
+    p "#{@name} runs and twists his tail"
+    pleasure = 10
+    time_passes
+  end
+end
+
+class Bird < Pet
+  def fly
+    p "#{@name} takes off and spin around you."
+end
+
+class Swan < Pet
+  def swim
+    p "#{@name} jumps into the water and swims."
+  end
+end
+
+class Dragon < Pet
+  def fire_breathe
+    p "#{@name} burns your cap."
+  end
+end
+
 p 'Give a name to your pet.'
 pet_name = gets.chomp
 p 'Specify the type of pet.'
