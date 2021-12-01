@@ -80,6 +80,21 @@ class Pet
     p "clean: #{@clean}"
   end
 
+  def help
+    p 'exit - exit the program.'
+    p 'feed - feed your pet.'
+    p 'drink - drink your pet.'
+    p 'walk - walk your pet.'
+    p 'train - train your pet.'
+    p 'play - play with your pet.'
+    p 'put_to_bed - put your pet to bed.'
+    p 'skillful? - test your pet\'s skills.'
+    p 'wash - wash your pet.'
+    p 'type - type of pet.'
+    p 'name - pet\'s name'
+    p 'parameters - check the parameters.'
+  end
+
   private
 
   def hungry?
@@ -174,9 +189,20 @@ class Pet
   end
 end
 
+class Dragon < Pet
+  def fire_breathe
+    p "#{@name} burns your cap."
+  end
+
+  def help
+    super
+    p 'fire_breathe: breathe the flame.'
+  end
+end
+
 class Dog < Pet
   def run
-    p "#{@name} runs and twists his tail"
+    p "#{@name} runs and twists his tail."
     pleasure = 10
     time_passes
   end
@@ -185,6 +211,7 @@ end
 class Bird < Pet
   def fly
     p "#{@name} takes off and spin around you."
+  end
 end
 
 class Swan < Pet
@@ -193,18 +220,29 @@ class Swan < Pet
   end
 end
 
-class Dragon < Pet
-  def fire_breathe
-    p "#{@name} burns your cap."
-  end
-end
-
 p 'Give a name to your pet.'
 pet_name = gets.chomp
 p 'Specify the type of pet.'
 pet_type = gets.chomp
-pet = Pet.new(pet_name, pet_type)
-command = ''
+p 'Choose your pet (dragon dog, bird, swan).'
+command = gets.chomp
+pet = nil
+while pet.nil?
+  case command
+  when 'dragon'
+    pet = Dragon.new(pet_name, pet_type)
+  when 'bird'
+    pet = Bird.new(pet_name, pet_type)
+  when 'dog'
+    pet = Dog.new(pet_name, pet_type)
+  when 'swan'
+    pet = Swan.new(pet_name, pet_type)
+  else
+    p 'Select an animal from the list(dragon dog, bird, swan).'
+    command = gets.chomp
+  end
+end
+
 p pet_name + ' is born..'
 p 'Write help for information.'
 
@@ -235,18 +273,7 @@ while command != 'exit'
   when 'parameters'
     pet.parameters
   when 'help'
-    p 'feed - feed your pet.'
-    p 'drink - drink your pet.'
-    p 'walk - walk your pet.'
-    p 'train - train your pet.'
-    p 'play - play with your pet.'
-    p 'put_to_bed - put your pet to bed.'
-    p 'skillful? - test your pet\'s skills.'
-    p 'wash - wash your pet.'
-    p 'type - type of pet.'
-    p 'name - pet\'s name'
-    p 'parameters - check the parameters.'
-    p 'exit - exit the program.'
+    pet.help
   else
     p 'Сommand is not correct write help for information.'
     command = gets.chomp
