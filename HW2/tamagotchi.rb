@@ -3,31 +3,31 @@ class Pet
     @name          = name
     @type          = type
     @asleep        = false
-    @satiety       = 10
-    @water         = 10
-    @pleasure      = 10
+    @satiety       = 20
+    @water         = 20
+    @pleasure      = 20
     @natural_needs = 0
     @tiredness     = 0
     @skills        = 0
-    @clean         = 10
+    @clean         = 20
   end
 
   attr_reader :type, :name
 
   def feed
     p "You feed #{@name}."
-    @satiety = 10
+    @satiety = 20
     time_passes
   end
 
   def drink
-    p "You drink #{@name}"
-    @water = 10
+    p "You drink #{@name}."
+    @water = 20
     time_passes
   end
 
   def train
-    p @name + ' needs no training.' if @skills == 10
+    p @name + ' needs no training.' if @skills == 20
     p "You train #{@name}."
     @skills += 2
     time_passes
@@ -51,12 +51,12 @@ class Pet
 
   def play
     p "#{@name} throws and catches ball."
-    @pleasure = 10
+    @pleasure = 20
     time_passes
   end
 
    def skillful?
-    if @skills >= 8
+    if @skills >= 18
       p 'Your pet is very skillful.'
     else
       p 'Need some more practice.'
@@ -65,7 +65,7 @@ class Pet
 
   def wash
     p "#{@name} takes a bath."
-    @clean = 10
+    @clean = 20
   end
 
   def parameters
@@ -98,23 +98,23 @@ class Pet
   private
 
   def hungry?
-    @satiety <= 2
+    @satiety <= 4
   end
 
   def poopy?
-    @natural_needs >= 8
+    @natural_needs >= 18
   end
 
   def happy?
-    @pleasure <= 2
+    @pleasure <= 4
   end
 
   def tired?
-    @tiredness >= 8
+    @tiredness >= 18
   end
 
   def dirty?
-    @clean <= 2
+    @clean <= 4
   end
 
   def pet_sleeping?
@@ -125,15 +125,16 @@ class Pet
   end
 
   def wants_drink?
-    @water <= 2
+    @water <= 4
   end
 
   def time_passes
-    @satiety       -= 2
-    @pleasure      -= 1
-    @natural_needs += 2
-    @tiredness     += 1
-    @clean         -= 2
+    @satiety       -= 4
+    @pleasure      -= 3
+    @natural_needs += 3
+    @tiredness     += 3
+    @clean         -= 1
+    @water         -= 3
 
     if @satiety == 0
       pet_sleeping?
@@ -148,11 +149,12 @@ class Pet
       p "#{@name} is very tired! In desperation, he died."
       exit
     elsif @water == 0
-      pet_sleeping
+      pet_sleeping?
       p "#{@name} is dehydrated! In desperation, he died."
+      exit
     end
 
-    if @natural_needs >= 10
+    if @natural_needs >= 20
       @natural_needs = 0
       p "Whoops! #{@name} had an accident..."
     end
@@ -192,6 +194,8 @@ end
 class Dragon < Pet
   def fire_breathe
     p "#{@name} burns your cap."
+    @pleasure += 2
+    time_passes
   end
 
   def help
@@ -201,32 +205,57 @@ class Dragon < Pet
 end
 
 class Dog < Pet
-  def run
-    p "#{@name} runs and twists his tail."
-    pleasure = 10
+  def bring_ball
+    p "You throw the ball to #{@name} and he brings it."
+    @pleasure = 20
     time_passes
+  end
+
+  def help
+    super
+    p 'bring_ball: bring the thrown ball.'
   end
 end
 
 class Bird < Pet
   def fly
     p "#{@name} takes off and spin around you."
+    @pleasure = 20
+    time_passes
+  end
+
+  def help
+    super
+    p 'fly: go for a fly.'
   end
 end
 
-class Swan < Pet
+class Duck < Pet
   def swim
     p "#{@name} jumps into the water and swims."
+    @pleasure = 20
+    @clean = 20
+    @satiety  += 2
+    time_passes
+  end
+
+  def help
+    super
+    p 'swim: go for a swim.'
   end
 end
 
 p 'Give a name to your pet.'
 pet_name = gets.chomp
+
 p 'Specify the type of pet.'
 pet_type = gets.chomp
-p 'Choose your pet (dragon dog, bird, swan).'
+
+p 'Choose your pet (dragon dog, bird, duck).'
 command = gets.chomp
+
 pet = nil
+
 while pet.nil?
   case command
   when 'dragon'
@@ -235,19 +264,19 @@ while pet.nil?
     pet = Bird.new(pet_name, pet_type)
   when 'dog'
     pet = Dog.new(pet_name, pet_type)
-  when 'swan'
-    pet = Swan.new(pet_name, pet_type)
+  when 'duck'
+    pet = Duck.new(pet_name, pet_type)
   else
-    p 'Select an animal from the list(dragon dog, bird, swan).'
+    p 'Select an animal from the list(dragon dog, bird, duck).'
     command = gets.chomp
   end
 end
 
 p pet_name + ' is born..'
 p 'Write help for information.'
-
-while command != 'exit'
-  case command = gets.chomp
+until command == 'exit'
+  command = gets.chomp
+  case command
   when 'exit'
     exit
   when 'feed'
@@ -274,8 +303,15 @@ while command != 'exit'
     pet.parameters
   when 'help'
     pet.help
+  when 'fire_breathe'
+    pet.fire_breathe
+  when 'fly'
+    pet.fly
+  when 'swim'
+    pet.swim
+  when 'bring_ball'
+    pet.bring_ball
   else
-    p 'Сommand is not correct write help for information.'
-    command = gets.chomp
+  p 'Сommand is not correct write help for information.' 
   end
 end
