@@ -1,0 +1,21 @@
+GIT
+  remote: https://github.com/olegarutin/RubyPage
+  revision: 3fe4ebbe4fd500fe0806a6530f1e492b8b00f179
+  specs:
+    ruby_page (0.1.1)
+
+GEM
+  specs:
+    nokogiri (1.12.5-x86_64-linux)
+      racc (~> 1.4)
+    racc (1.5.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  nokogiri
+  ruby_page!
+
+BUNDLED WITH
+   2.1.4

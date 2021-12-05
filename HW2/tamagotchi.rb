@@ -1,3 +1,4 @@
+require 'ruby_page'
 class Pet
   def initialize(name, type)
     @name          = name
@@ -18,12 +19,14 @@ class Pet
     p "You feed #{@name}."
     @satiety = 20
     time_passes
+    generate_html(self)
   end
 
   def drink
     p "You drink #{@name}."
     @water = 20
     time_passes
+    generate_html(self)
   end
 
   def train
@@ -31,12 +34,14 @@ class Pet
     p "You train #{@name}."
     @skills += 2
     time_passes
+    generate_html(self)
   end
 
   def walk
     p "You walk #{@name}."
     @natural_needs = 0
     time_passes
+    generate_html(self)
   end
 
   def put_to_bed
@@ -47,12 +52,14 @@ class Pet
     p "#{@name} wakes up slowly."
     @asleep = false
     @tiredness = 0
+    generate_html(self)
   end
 
   def play
     p "#{@name} throws and catches ball."
     @pleasure = 20
     time_passes
+    generate_html(self)
   end
 
    def skillful?
@@ -66,6 +73,7 @@ class Pet
   def wash
     p "#{@name} takes a bath."
     @clean = 20
+    generate_html(self)
   end
 
   def parameters
@@ -78,6 +86,22 @@ class Pet
     p "tiredness: #{@tiredness}"
     p "skills: #{@skills}"
     p "clean: #{@clean}"
+  end
+
+  def generate_html(pet)
+    HtmlGenerator.new(content: pet.html_content, bypass_html: false).generate_html
+  end
+
+  def html_content
+    "name: #{@name}
+    type: #{@type}
+    satiety: #{@satiety}
+    water: #{@water}
+    pleasure: #{@pleasure}
+    natural_needs: #{@natural_needs}
+    tiredness: #{@tiredness}
+    skills: #{@skills}
+    clean: #{@clean}"
   end
 
   def help
@@ -281,6 +305,7 @@ until command == 'exit'
     exit
   when 'feed'
     pet.feed
+
   when 'drink'
     pet.drink
   when 'train'
