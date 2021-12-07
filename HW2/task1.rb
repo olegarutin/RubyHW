@@ -16,20 +16,20 @@ p 'array.min'
 p array.min
 p '--------------'
 p '5.Отсортировать от меньшего к большему.'
-p 'array.sort { |a, b| a <=> b }'
-p array.sort { |a, b| a <=> b }
+p 'array.sort'
+p array.sort
 p '--------------'
 p '6.Отсортировать от большего к меньшему.'
-p 'array.sort { |a, b| b <=> a }'
-p array.sort { |a, b| b <=> a }
+p 'array.sort.reverse'
+p array.sort.reverse
 p '--------------'
 p '7.Удалить все нечетные числа.'
 p 'array.select(&:even?)'
 p array.select(&:even?)
 p '--------------'
 p '8.Оставить только те числа, которые без остатка делятся на 3.'
-p 'array.select { |x| x % 3 == 0 }'
-p array.select { |x| x % 3 == 0 }
+p 'array.select { |x| (x % 3).zero? }'
+p array.select { |x| (x % 3).zero? }
 p '--------------'
 p '9.Удалить из массива числа, которые повторяются (то есть, нужно вывести массив, в котором нет повторов).'
 p 'array.uniq'
@@ -40,15 +40,15 @@ p 'array.map { |x| x.to_f / 10 }'
 p array.map { |x| x.to_f / 10 }
 p '--------------'
 p '11.Получить новый массив, который бы содержал в себе те буквы английского алфавита, порядковый номер которых есть в нашем массиве.'
-p 'array.select { |x| x > 0 && x < 27 }.map { |e| (e + 96).chr }'
-p array.select { |x| x > 0 && x < 27 }.map { |e| (e + 96).chr }
+p 'array.select { |x| x.positive? && x < 27 }.map { |e| (e + 96).chr }'
+p array.select { |x| x.positive? && x < 27 }.map { |e| (e + 96).chr }
 p '--------------'
 p '12.Поменять местами минимальный и максимальный элементы массива.'
 p 'array.map { |x| if x == array.min || x == array.max then x == array.min ? x = array.max : x = array.min else x end'
 p array.map { |x| if x == array.min || x == array.max then x == array.min ? x = array.max : x = array.min else x end }
 p '--------------'
 p '13.Найти элементы, которые находятся перед минимальным числом в массиве.'
-p 'array[0...array.min]'
+p 'array[0...array.index(array.min)]'
 p array[0...array.index(array.min)]
 p '--------------'
 p '14.Необходимо найти три наименьших элемента.'
