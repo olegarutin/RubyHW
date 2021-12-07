@@ -1,4 +1,5 @@
 require 'ruby_page'
+
 class Pet
   def initialize(name, type)
     @name          = name
@@ -30,7 +31,7 @@ class Pet
   end
 
   def train
-    p @name + ' needs no training.' if @skills == 20
+    p "#{@name} needs no training." if @skills == 20
     p "You train #{@name}."
     @skills += 2
     time_passes
@@ -62,7 +63,7 @@ class Pet
     generate_html(self)
   end
 
-   def skillful?
+  def skillful?
     if @skills >= 18
       p 'Your pet is very skillful.'
     else
@@ -160,19 +161,19 @@ class Pet
     @clean         -= 1
     @water         -= 3
 
-    if @satiety == 0
+    if @satiety.negative?
       pet_sleeping?
       p "#{@name} is starving! In desperation, he go away."
       exit
-    elsif @pleasure == 0
+    elsif @pleasure.negative?
       pet_sleeping?
       p "#{@name} offended at you! In desperation, he go away."
       exit
-    elsif @tiredness == 0
+    elsif @tiredness.negative?
       pet_sleeping?
       p "#{@name} is very tired! In desperation, he died."
       exit
-    elsif @water == 0
+    elsif @water.negative?
       pet_sleeping?
       p "#{@name} is dehydrated! In desperation, he died."
       exit
@@ -259,7 +260,7 @@ class Duck < Pet
     p "#{@name} jumps into the water and swims."
     @pleasure = 20
     @clean = 20
-    @satiety  += 2
+    @satiety += 2
     time_passes
   end
 
@@ -296,7 +297,7 @@ while pet.nil?
   end
 end
 
-p pet_name + ' is born..'
+p "#{pet_name} is born.."
 p 'Write help for information.'
 until command == 'exit'
   command = gets.chomp
@@ -305,7 +306,6 @@ until command == 'exit'
     exit
   when 'feed'
     pet.feed
-
   when 'drink'
     pet.drink
   when 'train'
@@ -337,6 +337,6 @@ until command == 'exit'
   when 'bring_ball'
     pet.bring_ball
   else
-  p 'Сommand is not correct write help for information.' 
+    p 'Сommand is not correct write help for information.'
   end
 end
