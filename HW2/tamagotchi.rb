@@ -1,9 +1,8 @@
 require 'ruby_page'
 
 class Pet
-  def initialize(name, type)
+  def initialize(name)
     @name          = name
-    @type          = type
     @asleep        = false
     @satiety       = 20
     @water         = 20
@@ -14,7 +13,7 @@ class Pet
     @clean         = 20
   end
 
-  attr_reader :type, :name
+  attr_reader :name, :satiety, :water, :pleasure, :natural_needs, :tiredness, :skills, :clean
 
   def feed
     p "You feed #{@name}."
@@ -78,31 +77,39 @@ class Pet
   end
 
   def parameters
-    p "name: #{@name}"
-    p "type: #{@type}"
-    p "satiety: #{@satiety}"
-    p "water: #{@water}"
-    p "pleasure: #{@pleasure}"
-    p "natural_needs: #{@natural_needs}"
-    p "tiredness: #{@tiredness}"
-    p "skills: #{@skills}"
-    p "clean: #{@clean}"
+    p "Name: #{@name}"
+    p "Pet: #{pet}"
+    p "Satiety: #{@satiety}"
+    p "Water: #{@water}"
+    p "Pleasure: #{@pleasure}"
+    p "Natural_needs: #{@natural_needs}"
+    p "Tiredness: #{@tiredness}"
+    p "Skills: #{@skills}"
+    p "Clean: #{@clean}"
   end
 
   def generate_html(pet)
-    HtmlGenerator.new(content: pet.html_content, bypass_html: false).generate_html
+    HtmlGenerator.new(content: pet.html_content, bypass_html: true).generate_html
   end
 
   def html_content
-    "name: #{@name}
-    type: #{@type}
-    satiety: #{@satiety}
-    water: #{@water}
-    pleasure: #{@pleasure}
-    natural_needs: #{@natural_needs}
-    tiredness: #{@tiredness}
-    skills: #{@skills}
-    clean: #{@clean}"
+    %i[pet name satiety water pleasure natural_needs tiredness skills clean status].map do |param|
+      "#{param}: #{send(param)}"
+    end
+  end
+
+  def status
+    if pleasure > 10
+      '😁'
+    elsif pleasure > 1
+      '😔'
+    else
+      '😵'
+    end
+  end
+
+  def pet
+    self.class
   end
 
   def help
@@ -115,7 +122,7 @@ class Pet
     p 'put_to_bed - put your pet to bed.'
     p 'skillful? - test your pet\'s skills.'
     p 'wash - wash your pet.'
-    p 'type - type of pet.'
+    p 'pet - type of pet.'
     p 'name - pet\'s name'
     p 'parameters - check the parameters.'
   end
@@ -153,14 +160,16 @@ class Pet
     @water <= 4
   end
 
-  def time_passes
+  def change_params
     @satiety       -= 4
     @pleasure      -= 3
     @natural_needs += 3
     @tiredness     += 3
     @clean         -= 1
     @water         -= 3
+  end
 
+  def pet_alive
     if @satiety.negative?
       pet_sleeping?
       p "#{@name} is starving! In desperation, he go away."
@@ -178,6 +187,11 @@ class Pet
       p "#{@name} is dehydrated! In desperation, he died."
       exit
     end
+  end
+
+  def time_passes
+    change_params
+    pet_alive
 
     if @natural_needs >= 20
       @natural_needs = 0
@@ -273,9 +287,6 @@ end
 p 'Give a name to your pet.'
 pet_name = gets.chomp
 
-p 'Specify the type of pet.'
-pet_type = gets.chomp
-
 p 'Choose your pet (dragon dog, bird, duck).'
 command = gets.chomp
 
@@ -284,13 +295,13 @@ pet = nil
 while pet.nil?
   case command
   when 'dragon'
-    pet = Dragon.new(pet_name, pet_type)
+    pet = Dragon.new(pet_name)
   when 'bird'
-    pet = Bird.new(pet_name, pet_type)
+    pet = Bird.new(pet_name)
   when 'dog'
-    pet = Dog.new(pet_name, pet_type)
+    pet = Dog.new(pet_name)
   when 'duck'
-    pet = Duck.new(pet_name, pet_type)
+    pet = Duck.new(pet_name)
   else
     p 'Select an animal from the list(dragon dog, bird, duck).'
     command = gets.chomp
@@ -318,8 +329,8 @@ until command == 'exit'
     pet.put_to_bed
   when 'skillful?'
     pet.skillful?
-  when 'type'
-    p pet.type
+  when 'pet'
+    p pet.pet
   when 'name'
     p pet.name
   when 'wash'
