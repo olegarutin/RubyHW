@@ -8,12 +8,12 @@ class Pet
     @water         = 20
     @pleasure      = 20
     @natural_needs = 0
-    @tiredness     = 0
+    @energy        = 20
     @skills        = 0
     @clean         = 20
   end
 
-  attr_reader :name, :satiety, :water, :pleasure, :natural_needs, :tiredness, :skills, :clean
+  attr_reader :name, :satiety, :water, :pleasure, :natural_needs, :energy, :skills, :clean
 
   def feed
     p "You feed #{@name}."
@@ -51,7 +51,7 @@ class Pet
     time_passes
     p "#{@name} wakes up slowly."
     @asleep = false
-    @tiredness = 0
+    @energy = 20
     generate_html(self)
   end
 
@@ -83,28 +83,28 @@ class Pet
     p "Water: #{@water}"
     p "Pleasure: #{@pleasure}"
     p "Natural_needs: #{@natural_needs}"
-    p "Tiredness: #{@tiredness}"
+    p "Energy: #{@energy}"
     p "Skills: #{@skills}"
     p "Clean: #{@clean}"
   end
 
   def generate_html(pet)
-    HtmlGenerator.new(content: pet.html_content, bypass_html: true).generate_html
+    HtmlGenerator.new(content: pet.html_content).generate_html
   end
 
   def html_content
-    %i[pet name satiety water pleasure natural_needs tiredness skills clean status].map do |param|
+    %i[pet name satiety water pleasure natural_needs energy skills clean status].map do |param|
       "#{param}: #{send(param)}"
     end
   end
 
   def status
-    if pleasure > 10
+    if [@pleasure, @satiety, @energy, @water].all? { |param| param > 10 }
       '😁'
-    elsif pleasure > 1
-      '😔'
-    else
+    elsif [@pleasure, @satiety, @energy, @water].one?(&:negative?)
       '😵'
+    else
+      '😐'
     end
   end
 
@@ -142,7 +142,7 @@ class Pet
   end
 
   def tired?
-    @tiredness >= 18
+    @energy <= 4
   end
 
   def dirty?
@@ -150,10 +150,10 @@ class Pet
   end
 
   def pet_sleeping?
-    if @asleep
-      @asleep = false
-      p "#{@name} He wakes up suddenly!"
-    end
+    return false unless @asleep
+
+    @asleep = false
+    p "#{@name} He wakes up suddenly!"
   end
 
   def wants_drink?
@@ -161,30 +161,34 @@ class Pet
   end
 
   def change_params
-    @satiety       -= 4
-    @pleasure      -= 3
-    @natural_needs += 3
-    @tiredness     += 3
-    @clean         -= 1
-    @water         -= 3
+    @satiety       -= rand(4)
+    @pleasure      -= rand(4)
+    @natural_needs += rand(4)
+    @energy        -= rand(4)
+    @clean         -= rand(4)
+    @water         -= rand(4)
   end
 
   def pet_alive
     if @satiety.negative?
       pet_sleeping?
       p "#{@name} is starving! In desperation, he go away."
+      generate_html(self)
       exit
     elsif @pleasure.negative?
       pet_sleeping?
       p "#{@name} offended at you! In desperation, he go away."
+      generate_html(self)
       exit
-    elsif @tiredness.negative?
+    elsif @energy.negative?
       pet_sleeping?
       p "#{@name} is very tired! In desperation, he died."
+      generate_html(self)
       exit
     elsif @water.negative?
       pet_sleeping?
       p "#{@name} is dehydrated! In desperation, he died."
+      generate_html(self)
       exit
     end
   end

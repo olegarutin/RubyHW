@@ -1,4 +1,8 @@
-array = [621, 445, 147, 159, 430, 222, 482, 44, 194, 522, 652, 494, 14, 126, 532, 387, 441, 471, 337, 446, 18, 36, 202, 574, 556, 458, 16, 139, 222, 220, 107, 82, 264, 366, 501, 319, 314, 430, 55, 336]
+array = [
+  621, 445, 147, 159, 430, 222, 482, 44, 194, 522, 652, 494, 14, 126, 532, 387, 441, 471, 337, 446,
+  18, 36, 202, 574, 556, 458, 16, 139, 222, 220, 107, 82, 264, 366, 501, 319, 314, 430, 55, 336
+]
+
 p '1.Узнать количество элементов в массиве.'
 p 'array.count'
 p array.count
@@ -44,8 +48,24 @@ p 'array.select { |x| x.positive? && x < 27 }.map { |e| (e + 96).chr }'
 p array.select { |x| x.positive? && x < 27 }.map { |e| (e + 96).chr }
 p '--------------'
 p '12.Поменять местами минимальный и максимальный элементы массива.'
-p 'array.map { |x| if x == array.min || x == array.max then x == array.min ? x = array.max : x = array.min else x end'
-p array.map { |x| if x == array.min || x == array.max then x == array.min ? x = array.max : x = array.min else x end }
+p 'array.map |x| do'
+p '  if x == array.min'
+p '    x = array.max'
+p '  elsif x == array.max'
+p '   x == array.min'
+p '  else'
+p '    x'
+p '  end'
+p 'end'
+p array.map do |x|
+  if x == array.min
+    array.max
+  elsif x == array.max
+    array.min
+  else
+    x
+  end
+end
 p '--------------'
 p '13.Найти элементы, которые находятся перед минимальным числом в массиве.'
 p 'array[0...array.index(array.min)]'
