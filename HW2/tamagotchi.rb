@@ -94,7 +94,7 @@ class Pet
 
   def html_content
     %i[pet name satiety water pleasure natural_needs energy skills clean status].map do |param|
-      "#{param}: #{send(param)}"
+      "<p>#{param}: #{send(param)}</p>"
     end
   end
 

@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
-gem 'ruby_page', :git => 'https://github.com/olegarutin/RubyPage'
 
-gem 'nokogiri'
+gem 'ruby_page', :git => 'https://github.com/olegarutin/RubyPage'
 
 gem 'rubocop', require: false
