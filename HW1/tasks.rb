@@ -46,7 +46,7 @@ p '11.Дан целочисленный массив. Заменить все о
 p 'arr = (-2..5).to_a'
 p 'arr.each { |x| x.negative? ? x = arr.min : x }'
   arr = (-2..5).to_a
-p arr.map { |x| x.negative? x = arr.min : x }
+p arr.map { |x| x.negative? ? x = arr.min : x }
 p '--------------'
 p '12.Дан целочисленный массив. Заменить все отрицательные элементы на значение максимального.'
 p 'arr = (-2..5).to_a'
@@ -425,7 +425,8 @@ p 'result[1].all?'
     if  e == array[0]
       result[0] << e
     elsif (result[0].last.odd? && e.even?) || (result[0].last.even? && e.odd?)
-      result[0] << e | result[1] << true
+      result[0] << e
+      result[1] << true
     else
       result[1] << false
     end
