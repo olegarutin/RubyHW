@@ -149,7 +149,7 @@ p '--------------'
 p '27.Дан целочисленный массив. Преобразовать его, вставив после каждого положительного элемента нулевой элемент.'
 p 'input = (-4..4).to_a'
 p 'output = []'
-p 'input.each { |x| x.positive? ? output << input[0] && output << x : output << x }'
+p 'input.each { |x| x.positive? ? output << x && output << input[0] : output << x }'
 p 'output'
 input = (-4..4).to_a
 output = []
@@ -159,7 +159,7 @@ p '--------------'
 p '28.Дан целочисленный массив. Преобразовать его, вставив после каждого отрицательным элемента нулевой элемент.'
 p 'input = (-4..4).to_a'
 p 'output = []'
-p 'input.each { |x| x.negative? ? output << input[0] && output << x : output << x }'
+p 'input.each { |x| x.negative? ? output << x && output << input[0] : output << x }'
 p 'output'
 input = (-4..4).to_a
 output = []
