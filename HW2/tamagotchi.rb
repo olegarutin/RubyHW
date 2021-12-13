@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require 'ruby_page'
 
 class Pet
